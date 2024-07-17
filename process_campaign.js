@@ -3,15 +3,22 @@ const fs = require("fs").promises;
 
 const CLUB_ID = process.env.CLUB_ID;
 const CAMPAIGN_ID = process.env.CAMPAIGN_ID;
-const POINTS_AT = 6;
-const POINTS_GOLD = 3;
-const POINTS_SILVER = 2;
-const POINTS_BRONZE = 1;
-const POINTS_TOP_10 = [100, 90, 80, 70, 60, 50, 40, 30, 20, 10];
+const POINTS_AT = process.env.AT;
+const POINTS_GOLD = process.env.GOLD;
+const POINTS_SILVER = process.env.SILVER;
+const POINTS_BRONZE = process.env.BRONZE;
+const POINTS_TOP_10 = process.env.TOP10.split(",").map((i) => parseInt(i));
 
 const data = {};
 
-console.log(process.env.TEST);
+console.log(
+  process.env.TEST,
+  POINTS_AT,
+  POINTS_GOLD,
+  POINTS_SILVER,
+  POINTS_BRONZE,
+  POINTS_TOP_10
+);
 
 const getCampaign = async () => {
   console.log(`Getting campaign ${CAMPAIGN_ID} from club ${CLUB_ID}`);
