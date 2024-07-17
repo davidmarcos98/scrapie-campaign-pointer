@@ -4,10 +4,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch:
     inputs:
       clubId:
@@ -39,6 +35,8 @@ jobs:
         run: npm install
       - name: Run script
         run: node process_campaign.js
+        env:
+          TEST: ${{ inputs.clubId }}
       - name: Save output file
         uses: actions/upload-artifact@v4
         with:
