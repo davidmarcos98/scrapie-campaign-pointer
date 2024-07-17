@@ -57,4 +57,5 @@ getCampaign().then(() => {
   fs.writeFile("./output.json", JSON.stringify(data), (err) => {
     console.log(err);
   });
+  process.exit();
 });
