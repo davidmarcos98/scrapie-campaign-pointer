@@ -1,8 +1,8 @@
 const TMIO = require("trackmania.io");
 const fs = require("fs").promises;
 
-const CLUB_ID = "18974";
-const CAMPAIGN_ID = "70188";
+const CLUB_ID = process.env.CLUB_ID;
+const CAMPAIGN_ID = process.env.CAMPAIGN_ID;
 const POINTS_AT = 6;
 const POINTS_GOLD = 3;
 const POINTS_SILVER = 2;
@@ -14,6 +14,7 @@ const data = {};
 console.log(process.env.TEST);
 
 const getCampaign = async () => {
+  console.log(`Getting campaign ${CAMPAIGN_ID} from club ${CLUB_ID}`);
   let client = new TMIO.Client();
   let campaign = await client.campaigns.get(
     (clubId = CLUB_ID),
@@ -43,7 +44,9 @@ const processMap = async (map) => {
   let lb = await map.leaderboardLoadMore();
   while (lb.length < 200 && lb.length > 0 && lb.at(-1).time <= medals.bronze) {
     lb = await map.leaderboardLoadMore();
-    console.log(lb.at(-1).position);
+    console.log(
+      "Getting leaderboard for map" + map.name + "... " + lb.at(-1).position
+    );
     await sleep(1600);
   }
   for (let player of lb) {
@@ -56,6 +59,7 @@ const processMap = async (map) => {
 };
 
 getCampaign().then(() => {
+  console.log("Saving file...");
   fs.writeFile("./output.json", JSON.stringify(data), (err) => {
     console.log(err);
   }).then(() => {
