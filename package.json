@@ -1,0 +1,14 @@
+{
+  "name": "scrapie-campaigns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "process_campaign.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "trackmania.io": "^3.2.2"
+  }
+}
