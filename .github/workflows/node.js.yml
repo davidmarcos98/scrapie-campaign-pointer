@@ -5,13 +5,23 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      clubId:
+        type: string
+        description: Club ID (Can be found in tm.io)
+        required: true
+        default: "2270"
+      campaignId:
+        type: string
+        description: Campaign ID (Can be found in tm.io)
+        required: true
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,20 +29,19 @@ jobs:
         node-version: [16.20.2]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install dependencies
-      run: npm install
-    - name: Run script
-      run: node process_campaign.js
-    - name: Save output file
-      uses: actions/upload-artifact@v4
-      with:
-        name: output
-        path: |
-          output.json
-
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: Run script
+        run: node process_campaign.js
+      - name: Save output file
+        uses: actions/upload-artifact@v4
+        with:
+          name: output
+          path: |
+            output.json

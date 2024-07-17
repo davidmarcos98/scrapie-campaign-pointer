@@ -1,5 +1,5 @@
 const TMIO = require("trackmania.io");
-const fs = require("node:fs");
+const fs = require("fs").promises;
 
 const CLUB_ID = "18974";
 const CAMPAIGN_ID = "70188";
@@ -56,6 +56,7 @@ const processMap = async (map) => {
 getCampaign().then(() => {
   fs.writeFile("./output.json", JSON.stringify(data), (err) => {
     console.log(err);
+  }).then(() => {
+    process.exit();
   });
-  process.exit();
 });
